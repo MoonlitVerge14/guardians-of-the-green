@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardians of the Green</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #f0fff0, #d0f0c0);
+            color: #333;
+        }
+        header {
+            background-color: #2e8b57;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 30px;
+            font-weight: 500;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #3cb371;
+            padding: 10px;
+        }
+        nav button {
+            margin: 0 5px;
+            padding: 10px 15px;
+            background: white;
+            border: none;
+            border-radius: 5px;
+            color: #2e8b57;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        nav button:hover {
+            background: #2e8b57;
+            color: white;
+        }
+        .page {
+            display: none;
+            padding: 20px;
+            transition: 0.3s ease-in-out;
+        }
+        .page.active {
+            display: block;
+        }
+        h1, h2 {
+            color: #2e8b57;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #2e8b57;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #3cb371;
+        }
+        .form-input {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .form-textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .goal-card {
+            background-color: #e0ffe0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .goal-card h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .goal-card p {
+            font-size: 14px;
+            color: #555;
+        }
+        .charts {
+            display: flex;
+            justify-content: space-around;
+        }
+        .charts .chart {
+            width: 45%;
+            height: 200px;
+            background-color: #2e8b57;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            padding-top: 80px;
+            font-size: 20px;
+        }
+        .dark-mode-btn {
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Guardians of the Green
+    </header>
+    <nav>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('profile')">Profile</button>
+        <button onclick="showPage('logActions')">Log Actions</button>
+        <button onclick="showPage('progress')">Progress</button>
+        <button onclick="showPage('suggestions')">Suggestions</button>
+        <button onclick="showPage('faq')">FAQ</button>
+        <button onclick="showPage('about')">About</button>
+        <button onclick="toggleDarkMode()">Dark Mode</button>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <h2>Welcome to Guardians of the Green!</h2>
+        <p>Track your daily actions and make a positive impact on the planet. Together, we can create a greener future!</p>
+        <div class="charts">
+            <div class="chart">
+                <span>Waste Reduction</span>
+                <p>70%</p>
+            </div>
+            <div class="chart">
+                <span>Energy Saved</span>
+                <p>50%</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="profile" class="page">
+        <h2>Your Profile</h2>
+        <form>
+            <input class="form-input" type="text" id="name" placeholder="Enter your name" required><br><br>
+            <input class="form-input" type="email" id="email" placeholder="Enter your email" required><br><br>
+            <button type="button" onclick="saveProfile()">Save Profile</button>
+        </form>
+    </div>
+
+    <!-- Log Actions Page -->
+    <div id="logActions" class="page">
+        <h2>Log Your Actions</h2>
+        <textarea class="form-textarea" id="actionLog" placeholder="E.g., Used a reusable bottle, planted a tree..."></textarea><br>
+        <button onclick="logAction()">Save Action</button>
+    </div>
+
+    <!-- Progress Page -->
+    <div id="progress" class="page">
+        <h2>Your Progress</h2>
+        <div id="progressDetails">You haven't logged any actions yet.</div>
+    </div>
+
+    <!-- Suggestions Page -->
+    <div id="suggestions" class="page">
+        <h2>Suggestions for Improvement</h2>
+        <div class="goal-card">
+            <h3>Goal 1: Reduce Plastic Waste</h3>
+            <p>Start by using reusable bags and bottles!</p>
+        </div>
+        <div class="goal-card">
+            <h3>Goal 2: Save Energy</h3>
+            <p>Switch to LED bulbs and unplug devices when not in use.</p>
+        </div>
+    </div>
+
+    <!-- FAQ Page -->
+    <div id="faq" class="page">
+        <h2>Frequently Asked Questions</h2>
+        <ul>
+            <li>How do I log an action? Use the "Log Actions" page!</li>
+            <li>Can I track my progress? Yes, visit the "Progress" page.</li>
+            <li>Where can I find tips for improvement? Check out "Suggestions."</li>
+        </ul>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <h2>About Guardians of the Green</h2>
+        <p>Guardians of the Green is a sustainable lifestyle app that helps individuals reduce their environmental footprint. Take action and become a green guardian today!</p>
+    </div>
+
+    <script>
+        let isDarkMode = false;
+
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function logAction() {
+            const actionLog = document.getElementById('actionLog').value;
+            if (actionLog) {
+                const progressDetails = document.getElementById('progressDetails');
+                progressDetails.textContent += `• ${actionLog}\n`;
+                alert('Action logged successfully!');
+                document.getElementById('actionLog').value = '';
+            } else {
+                alert('Please enter an action before saving.');
+            }
+        }
+
+        function saveProfile() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            if (name && email) {
+                alert(`Profile saved! Name: ${name}, Email: ${email}`);
+            } else {
+                alert('Please complete all fields.');
+            }
+        }
+
+        function toggleDarkMode() {
+            const body = document.querySelector('body');
+            body.style.backgroundColor = isDarkMode ? '#f0fff0' : '#2e2e2e';
+            body.style.color = isDarkMode ? '#333' : '#fff';
+            document.querySelectorAll('button').forEach(btn => {
+                btn.style.backgroundColor = isDarkMode ? '#2e8b57' : '#555';
+                btn.style.color = isDarkMode ? '#fff' : '#fff';
+            });
+            isDarkMode = !isDarkMode;
+        }
+    </script>
+</body>
+</html>
